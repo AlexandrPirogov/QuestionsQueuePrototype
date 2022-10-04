@@ -34,7 +34,7 @@ class QuestionQueue
 {
 	short add_status;
 	short answer_status;
-	std::list < std::shared_ptr<Question>> questions;
+	std::list <std::shared_ptr<Question>> questions;
 public:
 
 	short const ADD_STATUS_NIL = -1;
@@ -55,6 +55,20 @@ public:
 	{
 		questions.emplace_back(std::move(question));
 		add_status = ADD_STATUS_OK;
+	}
+
+	inline std::shared_ptr<Question> currentQuestion()
+	{
+		std::shared_ptr<Question> currentQ = *questions.begin();
+		return currentQ;
+	}
+	
+	inline void answerToQuestion(short ans)
+	{
+		std::shared_ptr<Question> currentQ = *questions.begin();
+		currentQ->whatCorrectAnswer() == ans ? answer_status = ANSWER_STATUS_OK : answer_status = ANSWER_STATUS_INCORRECT;
+		if(answer_status == ANSWER_STATUS_OK)
+			questions.erase(questions.begin());
 	}
 
 	inline bool isNext() noexcept

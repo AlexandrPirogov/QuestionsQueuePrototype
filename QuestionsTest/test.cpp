@@ -63,8 +63,27 @@ namespace QueueTests
 	TEST(QuestionTest, IsNotAnswerExists)
 	{
 		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
-
 		ASSERT_FALSE(queue->isNext());
+	}
+
+	TEST(QuestionTest, AnswerTillQuestionsExists)
+	{
+		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
+
+		std::shared_ptr<Question> question = createQuestion();
+		std::shared_ptr<Question> question2 = createQuestion();
+		std::shared_ptr<Question> question3 = createQuestion();
+
+		queue->emplaceBack(question);
+		queue->emplaceBack(question2);
+		queue->emplaceBack(question3);
+
+		while (queue->isNext())
+		{
+			std::shared_ptr<Question> current = queue->currentQuestion();
+			queue->answerToQuestion(1);
+			ASSERT_TRUE(queue->answerStatus() == queue->ANSWER_STATUS_OK);
+		}
 	}
 }
 
