@@ -2,7 +2,7 @@
 #include <memory>
 #include <string>
 #include <map>
-#include <queue>
+#include <list>
 
 class Question
 {
@@ -34,7 +34,7 @@ class QuestionQueue
 {
 	short add_status;
 	short answer_status;
-	std::queue<Question> questions;
+	std::list < std::shared_ptr<Question>> questions;
 public:
 
 	short const ADD_STATUS_NIL = -1;
@@ -50,6 +50,12 @@ public:
 		add_status = ADD_STATUS_NIL;
 		answer_status = ANSWER_STATUS_NIL;
 	};
+
+	inline void emplaceBack(std::shared_ptr<Question>& question) noexcept
+	{
+		questions.emplace_back(std::move(question));
+		add_status = ADD_STATUS_OK;
+	}
 
 	inline const size_t size() noexcept
 	{

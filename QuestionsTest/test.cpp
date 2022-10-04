@@ -27,7 +27,7 @@ namespace QueueTests
 		std::shared_ptr<Question> question = createQuestion();
 	}
 
-	TEST(QueueTests, CreatingAndFillingQueue)
+	TEST(QueueTests, CreatingQueue)
 	{
 		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
 		ASSERT_TRUE(queue->size() == 0);
@@ -35,6 +35,15 @@ namespace QueueTests
 		ASSERT_TRUE(queue->answerStatus() == queue->ANSWER_STATUS_NIL);
 	}
 
+
+	//TCR
+	TEST(QuestionTest, FillingQueue)
+	{
+		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
+		std::shared_ptr<Question> question = createQuestion();
+		queue->emplaceBack(question);
+		ASSERT_TRUE(queue->addStatus() == queue->ADD_STATUS_OK && queue->size() > 0);
+	}
 }
 
 
