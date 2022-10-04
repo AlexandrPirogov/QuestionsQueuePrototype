@@ -57,6 +57,11 @@ public:
 		add_status = ADD_STATUS_OK;
 	}
 
+	inline bool isNext() noexcept
+	{
+		return questions.size() > 0;
+	}
+
 	inline const size_t size() noexcept
 	{
 		return questions.size();

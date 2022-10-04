@@ -44,6 +44,21 @@ namespace QueueTests
 		queue->emplaceBack(question);
 		ASSERT_TRUE(queue->addStatus() == queue->ADD_STATUS_OK && queue->size() > 0);
 	}
+
+	TEST(QuestionTest, IsAnswerExists)
+	{
+		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
+
+		std::shared_ptr<Question> question = createQuestion();
+		std::shared_ptr<Question> question2 = createQuestion();
+		std::shared_ptr<Question> question3 = createQuestion();
+
+		queue->emplaceBack(question);
+		queue->emplaceBack(question2);
+		queue->emplaceBack(question3);
+
+		ASSERT_TRUE(queue->isNext());
+	}
 }
 
 
