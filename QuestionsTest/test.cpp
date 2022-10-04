@@ -42,6 +42,8 @@ namespace QueueTests
 		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
 		std::shared_ptr<Question> question = createQuestion();
 		queue->emplaceBack(question);
+		
+		//Commit after success or reset
 		ASSERT_TRUE(queue->addStatus() == queue->ADD_STATUS_OK && queue->size() > 0);
 	}
 
@@ -57,12 +59,15 @@ namespace QueueTests
 		queue->emplaceBack(question2);
 		queue->emplaceBack(question3);
 
+		//Commit after success or reset
 		ASSERT_TRUE(queue->isNext());
 	}
 
 	TEST(QuestionTest, IsNotAnswerExists)
 	{
 		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
+		
+		//Commit after success or reset
 		ASSERT_FALSE(queue->isNext());
 	}
 
@@ -82,9 +87,12 @@ namespace QueueTests
 		{
 			std::shared_ptr<Question> current = queue->currentQuestion();
 			queue->answerToQuestion(1);
+			
+		//Commit after success or reset
 			ASSERT_TRUE(queue->answerStatus() == queue->ANSWER_STATUS_OK);
 		}
 
+		//Commit after success or reset
 		ASSERT_FALSE(queue->isNext());
 	}
 
@@ -102,7 +110,10 @@ namespace QueueTests
 
 		std::shared_ptr<Question> current = queue->currentQuestion();
 		queue->answerToQuestion(-1);
+		//Commit after success or reset
 		ASSERT_TRUE(queue->answerStatus() == queue->ANSWER_STATUS_INCORRECT);
+		
+		//Commit after success or reset
 		ASSERT_EQ(queue->currentQuestion(), current);
 	}
 }
