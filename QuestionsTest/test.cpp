@@ -84,6 +84,8 @@ namespace QueueTests
 			queue->answerToQuestion(1);
 			ASSERT_TRUE(queue->answerStatus() == queue->ANSWER_STATUS_OK);
 		}
+
+		ASSERT_FALSE(queue->isNext());
 	}
 }
 
