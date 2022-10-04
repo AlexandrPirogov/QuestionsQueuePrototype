@@ -59,6 +59,13 @@ namespace QueueTests
 
 		ASSERT_TRUE(queue->isNext());
 	}
+
+	TEST(QuestionTest, IsNotAnswerExists)
+	{
+		std::unique_ptr<QuestionQueue> queue = std::make_unique<QuestionQueue>();
+
+		ASSERT_FALSE(queue->isNext());
+	}
 }
 
 
